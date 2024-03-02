@@ -1521,11 +1521,13 @@ if __name__ == "__main__":
         total_view = config.data['params']['total_view']
         num_workers = config.data['params']['num_workers']
         batch_size = config.data['params']['batch_size']
-        root_dir = config.data['params']['root_dir']
+        root_dir_3d = config.data['params']['root_dir_3d']
+        root_dir_2d = config.data['params']['root_dir_2d']
         valid_path = config.data['params']['valid_path']
         img_size = config.data['params']['image_size']
 
-        data = ObjaverseDataModuleFromConfig(root_dir, batch_size, total_view, num_workers,valid_path,img_size)
+        data = ObjaverseDataModuleFromConfig(root_dir_3d, root_dir_2d, batch_size, total_view, num_workers, valid_path,
+                                             img_size)
         data.prepare_data()
 
         data.setup()
