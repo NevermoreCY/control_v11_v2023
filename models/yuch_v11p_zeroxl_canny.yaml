@@ -86,12 +86,12 @@ model:
 data:
   target: ldm.data.simple.ObjaverseDataModuleFromConfig
   params:
-    root_dir: '/yuch_ws/views_release'
+    root_dir: '/yuch_ws/views_valid5/objaverse/control3D/views'
     batch_size: 160
     num_workers: 16
-    total_view: 12
+    total_view: 4
     image_size: 256
-    valid_path: valid_merged_paths_7.json
+    valid_path: valid_paths_5_v2.json
 #    valid_path: 'valid_paths_8.json'
 #    valid_path: 'BLIP2_count_5_13_only_colored.json'
 
