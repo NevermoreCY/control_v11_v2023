@@ -403,8 +403,7 @@ class ObjaverseData(Dataset):
                 target_im = (target_im.astype(np.float32) / 127.5) - 1.0
                 target_im = torch.tensor(target_im)
 
-
-
+                target_RT = self.get_T(target_RT,target_RT)
                 data_img = torch.stack((target_im, target_im, target_im, target_im), dim=0)
                 data_camera = torch.stack((target_RT, target_RT, target_RT, target_RT), dim=0)
                 data_canny= torch.stack((canny_r, canny_r, canny_r, canny_r), dim=0)
@@ -454,6 +453,7 @@ class ObjaverseData(Dataset):
                 target_im = (target_im.astype(np.float32) / 127.5) - 1.0
                 target_im = torch.tensor(target_im)
 
+                target_RT = self.get_T(target_RT, target_RT)
                 data_img = torch.stack((target_im, target_im, target_im, target_im), dim=0)
                 data_camera = torch.stack((target_RT, target_RT, target_RT, target_RT), dim=0)
                 data_canny = torch.stack((canny_r, canny_r, canny_r, canny_r), dim=0)
@@ -518,6 +518,7 @@ class ObjaverseData(Dataset):
                     target_im = (target_im.astype(np.float32) / 127.5) - 1.0
                     target_im = torch.tensor(target_im)
 
+                    target_RT = self.get_T(target_RT, target_RT)
                     img_list.append(target_im)
                     camera_list.append(target_RT)
                     text_list.append(prompt)
@@ -567,6 +568,7 @@ class ObjaverseData(Dataset):
                     target_im = torch.tensor(target_im)
 
                     img_list.append(target_im)
+                    target_RT = self.get_T(target_RT, target_RT)
                     camera_list.append(target_RT)
                     text_list.append(prompt)
 
