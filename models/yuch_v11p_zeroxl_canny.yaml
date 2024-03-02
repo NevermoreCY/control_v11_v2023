@@ -88,7 +88,7 @@ data:
   params:
     root_dir_3d: '/yuch_ws/views_valid5/objaverse/control3D/views'
     root_dir_2d: '/yuch_ws/ControlNet-v1-1-nightly/mscoco/mscoco'
-    batch_size: 160
+    batch_size: 40
     num_workers: 16
     total_view: 4
     image_size: 256
