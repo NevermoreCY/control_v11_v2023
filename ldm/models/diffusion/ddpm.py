@@ -843,8 +843,11 @@ class LatentDiffusion(DDPM):
         # print("*** T[:,NOne.] shape" ,  T[:, None, :].shape)
         # 10,1,4
         print("\n\n T shape ", T.shape)
+
+        T = rearrange(T, 'b f h w ->  h w')
+
         T = T[:, None, :].repeat(1,77,1)
-        # print("**** T shape after repeat " , T.shape)
+        print("**** T shape after repeat " , T.shape)
 
         # here we use AutoencoderKL to encode the target image into latent space
         encoder_posterior = self.encode_first_stage(x)
