@@ -86,7 +86,8 @@ model:
 data:
   target: ldm.data.simple.ObjaverseDataModuleFromConfig
   params:
-    root_dir: '/yuch_ws/views_valid5/objaverse/control3D/views'
+    root_dir_3d: '/yuch_ws/views_valid5/objaverse/control3D/views'
+    root_dir_2d: '/yuch_ws/ControlNet-v1-1-nightly/mscoco/mscoco'
     batch_size: 160
     num_workers: 16
     total_view: 4
