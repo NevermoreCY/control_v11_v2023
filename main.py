@@ -150,10 +150,48 @@ def get_parser(**parser_kwargs):
     )
     return parser
 
+# class ObjaverseDataModuleFromConfig(pl.LightningDataModule): 160
+#     def __init__(self, root_dir, batch_size, total_view,  num_workers=4,valid_path='valid_path.json', img_size=256, **kwargs):
+#         super().__init__(self)
+#         self.root_dir = root_dir
+#         self.batch_size = batch_size
+#         self.num_workers = num_workers
+#         self.total_view = total_view
+#         self.image_size = img_size
+#         self.valid_path = valid_path
+#         image_transforms = [torchvision.transforms.Resize(img_size)]
+#         image_transforms.extend([transforms.ToTensor(),
+#                                  transforms.Lambda(lambda x: rearrange(x * 2. - 1., 'c h w -> h w c'))])
+#         self.image_transforms = torchvision.transforms.Compose(image_transforms)
+#
+#     def train_dataloader(self):
+#         # total_view = 4
+#         # print("t1 train_data")
+#         dataset = ObjaverseData(root_dir=self.root_dir, total_view=self.total_view, validation=False, \
+#                                 image_transforms=self.image_transforms, image_size=self.image_size,valid_path=self.valid_path)
+#         sampler = DistributedSampler(dataset)
+#         return wds.WebLoader(dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False,
+#                              sampler=sampler)
+#
+#     def val_dataloader(self):
+#         # print("t1 val_data")
+#         dataset = ObjaverseData(root_dir=self.root_dir, total_view=self.total_view, validation=True, \
+#                                 image_transforms=self.image_transforms,image_size=self.image_size,valid_path=self.valid_path)
+#         sampler = DistributedSampler(dataset)
+#         return wds.WebLoader(dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
+#
+#     def test_dataloader(self):
+#         # print("t1 test_data")
+#         return wds.WebLoader(
+#             ObjaverseData(root_dir=self.root_dir, total_view=self.total_view, validation=self.validation,image_size=self.image_size,valid_path=self.valid_path), \
+#             batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
+# s=1
+
 class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
-    def __init__(self, root_dir, batch_size, total_view,  num_workers=4,valid_path='valid_path.json', img_size=256, **kwargs):
+    def __init__(self, root_dir_3d,root_dir_2d, batch_size, total_view,  num_workers=4,valid_path='valid_path.json', img_size=256, **kwargs):
         super().__init__(self)
-        self.root_dir = root_dir
+        self.root_dir_3d = root_dir_3d
+        self.root_dir_2d = root_dir_2d
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.total_view = total_view
@@ -167,7 +205,7 @@ class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
     def train_dataloader(self):
         # total_view = 4
         # print("t1 train_data")
-        dataset = ObjaverseData(root_dir=self.root_dir, total_view=self.total_view, validation=False, \
+        dataset = ObjaverseData(root_dir_3d=self.root_dir_3d, root_dir_2d=self.root_dir_2d, total_view=self.total_view, validation=False, \
                                 image_transforms=self.image_transforms, image_size=self.image_size,valid_path=self.valid_path)
         sampler = DistributedSampler(dataset)
         return wds.WebLoader(dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False,
@@ -175,7 +213,7 @@ class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
 
     def val_dataloader(self):
         # print("t1 val_data")
-        dataset = ObjaverseData(root_dir=self.root_dir, total_view=self.total_view, validation=True, \
+        dataset = ObjaverseData(root_dir_3d=self.root_dir_3d, root_dir_2d=self.root_dir_2d, total_view=self.total_view, validation=True, \
                                 image_transforms=self.image_transforms,image_size=self.image_size,valid_path=self.valid_path)
         sampler = DistributedSampler(dataset)
         return wds.WebLoader(dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
@@ -183,7 +221,7 @@ class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
     def test_dataloader(self):
         # print("t1 test_data")
         return wds.WebLoader(
-            ObjaverseData(root_dir=self.root_dir, total_view=self.total_view, validation=self.validation,image_size=self.image_size,valid_path=self.valid_path), \
+            ObjaverseData(root_dir_3d=self.root_dir_3d, root_dir_2d=self.root_dir_2d, total_view=self.total_view, validation=self.validation,image_size=self.image_size,valid_path=self.valid_path), \
             batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
 
 def auto_canny(image, sigma=0.33):
