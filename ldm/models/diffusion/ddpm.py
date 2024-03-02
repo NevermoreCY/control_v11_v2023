@@ -842,6 +842,7 @@ class LatentDiffusion(DDPM):
         # 10 , 4
         # print("*** T[:,NOne.] shape" ,  T[:, None, :].shape)
         # 10,1,4
+        print("\n\n T shape ", T.shape)
         T = T[:, None, :].repeat(1,77,1)
         # print("**** T shape after repeat " , T.shape)
 
