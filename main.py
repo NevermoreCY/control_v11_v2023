@@ -239,6 +239,20 @@ class ObjaverseData(Dataset):
 
         self.bad_files = []
 
+        import pandas as pd
+
+        file = 'Cap3D_automated_Objaverse_full_no3Dword.csv'
+        captions = pd.read_csv(file, header=None)
+
+        cap_data = {}
+
+        for i in range(len(captions)):
+            str_id = captions[0][i]
+            str_cap = captions[1][i]
+            cap_data[str_id] = str_cap
+        # ------------------------3D caption---------------------
+        self.cap_data = cap_data
+
         # if not isinstance(ext, (tuple, list, ListConfig)):
         #     ext = [ext]
 
@@ -318,8 +332,11 @@ class ObjaverseData(Dataset):
             target_RT = np.load(os.path.join(filename, '%03d.npy' % index_target))
             cond_RT = np.load(os.path.join(filename, '%03d.npy' % index_cond))
             # read prompt from BLIP
-            f = open(os.path.join(filename, "BLIP_best_text_v2.txt") , 'r')
-            prompt = f.readline()
+            # f = open(os.path.join(filename, "BLIP_best_text_v2.txt") , 'r')
+            # prompt = f.readline()
+            sample_id = self.paths[index]
+            prompt = self.cap_data[sample_id]
+
             # get cond_im and target_im
             cond_im = cv2.imread(os.path.join(filename, '%03d.png' % index_cond))
             target_im = cv2.imread(os.path.join(filename, '%03d.png' % index_target))
@@ -358,8 +375,11 @@ class ObjaverseData(Dataset):
             target_RT = np.load(os.path.join(filename, '%03d.npy' % index_target))
             cond_RT = np.load(os.path.join(filename, '%03d.npy' % index_cond))
             # read prompt from BLIP
-            f = open(os.path.join(filename, "BLIP_best_text_v2.txt") , 'r')
-            prompt = f.readline()
+            # f = open(os.path.join(filename, "BLIP_best_text_v2.txt") , 'r')
+            # prompt = f.readline()
+
+            sample_id = self.paths[index]
+            prompt = self.cap_data[sample_id]
             # get cond_im and target_im
             cond_im = cv2.imread(os.path.join(filename, '%03d.png' % index_cond))
             target_im = cv2.imread(os.path.join(filename, '%03d.png' % index_target))
