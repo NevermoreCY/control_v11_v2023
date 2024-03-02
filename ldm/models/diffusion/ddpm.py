@@ -862,6 +862,11 @@ class LatentDiffusion(DDPM):
                 if cond_key in ['caption', 'coordinates_bbox', "txt", "camera_pose"]:
                     # print("we should have text prompt for condition, cond_key is ", cond_key)
                     xc = batch[cond_key]
+                    xc_ext = []
+                    for text in xc:
+                        for f_num in range(4):
+                            xc_ext.append(text)
+                    xc = xc_ext
                 elif cond_key in ['class_label', 'cls']:
                     xc = batch
                 else:
