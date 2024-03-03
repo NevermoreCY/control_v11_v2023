@@ -53,7 +53,7 @@ class MVControlledUnetModel(MultiViewUNetModel):
             print("\n\n time steps : " , timesteps)
             t_emb = timestep_embedding(timesteps, self.model_channels, repeat_only=False)
 
-            print("\n\n t emb is : " , t_emb.shpe ,'\n\n' , t_emb)
+            print("\n\n t emb is : " , t_emb.shape ,'\n\n' , t_emb)
             emb = self.time_embed(t_emb)
             h = x.type(self.dtype)
             for module in self.input_blocks:
