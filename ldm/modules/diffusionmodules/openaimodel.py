@@ -82,6 +82,8 @@ class TimestepEmbedSequential(nn.Sequential, TimestepBlock):
                 x = layer(x, emb)
             elif isinstance(layer, SpatialTransformer):
                 x = layer(x, context)
+            elif isinstance(layer, SpatialTransformer3D):
+                x = layer(x, context)
             else:
                 x = layer(x)
         return x
