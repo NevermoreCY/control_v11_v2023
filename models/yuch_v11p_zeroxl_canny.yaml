@@ -39,7 +39,7 @@ model:
         legacy: False
 
     unet_config:
-      target: cldm.cldm.ControlledUnetModel
+      target: cldm.cldm.MVControlledUnetModel
       params:
         image_size: 32 # unused
         in_channels: 4
